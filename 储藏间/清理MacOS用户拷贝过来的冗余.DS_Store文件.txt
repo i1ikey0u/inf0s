@@ -1,0 +1,14 @@
+DS_Store，全称是 Desktop Services Store（桌面服务存储），存储当前文件夹在桌面显示相关方面的一些自定义属性，包括文件图标的位置、文件夹上次打开时窗口的大小、展现形式和位置等。（注意，该文件可能包含文件夹或内部文件的一些注释信息）
+开头的 DS 是 Desktop Services（桌面服务） 的缩写。它是一种由macOS系统自动创建的隐藏文件，存在于每一个用「访达」打开过的文件夹下面。在 macOS 与任何其他电脑之间拷贝或传输文件的时候，DS_Store 文件会默认被包含在内。
+
+
+批处理脚本命令清理方法：
+将如下命令复制粘贴到一个txt文档，将后缀txt修改为bat，双击执行（或右键选择使用管理员权限执行）即可：
+
+@echo off  
+set "folder=%CD%"  
+for /r "%folder%" %%a in (*.DS_Store) do (  
+    del "%%a"  
+)  
+echo "del done"  
+pause

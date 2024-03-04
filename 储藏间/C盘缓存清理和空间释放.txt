@@ -1,0 +1,17 @@
+大文件可视化排查工具：WinDirStat/wiztree
+
+python模块库缓存：
+缓存位置：%LocalAppData%/pip/
+pip cache purge命令或直接删除
+
+
+微软Windows应用商店缓存：
+缓存位置：%LocalAppData%/Packages
+直接使用wsreset命令，重置Windows应用商店
+或者使用wreset.exe(通常位于C:\Windows\System32\文件夹)
+
+chrome浏览器缓存：
+%LocalAppData%/Google\Chrome\User Data\Default\Service Worker
+
+Edge浏览器缓存：
+%appdata%\..\Local\Microsoft\Edge\User Data\Default\Service Worker\CacheStorage

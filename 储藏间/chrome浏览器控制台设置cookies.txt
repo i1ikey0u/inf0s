@@ -1,0 +1,9 @@
+chrome、edge等浏览器，可以通过F12调出的Console控制台，便捷的配置指定网站的cookies：
+
+命令如下：
+
+var cookiestr="要配置的cookie内容";
+var arr = cookiestr.split(";");
+for(var i in arr){
+ document.cookie=arr[i];
+}
