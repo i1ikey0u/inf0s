@@ -1,0 +1,55 @@
+有些内网的Centos服务器，没有互联网环境，使用yum安装软件的时候，会遇到问题。
+可以通过在内网服务器或本机服务器上部署离线yum源的方式解决该问题。步骤如下：
+
+1，准备离线资源
+下载Centos ISO镜像文件，国内建议使用阿里云的源。文件比较到，大概10G，需要注意的是，要选择带Everything字样的镜像。
+https://mirrors.aliyun.com/centos/7.9.2009/isos/x86_64/CentOS-7-x86_64-Everything-2207-02.iso
+
+2，上传到要部署的服务器，记住上传的文件路径。
+
+3，在服务器上创建目录
+记住该目录，注意确保挂载点或本地目录的权限允许所有系统用户读取。
+mkidr -p /local_yum
+
+4，挂载镜像文件，将其挂载到/local_yum目录
+mount -t iso9660 -o loop /root/CentOS-7-x86_64-Everything-2207-02.iso  /mnt
+
+5，使用df -Th，确认挂载情况
+
+6，备份配置文件
+备份yum安装使用的配置文件，/etc/yum.repos.d/CentOS-Base.repo
+
+7，修改yum安装使用的配置文件：
+CentOS-Base.repo 是yum 网络源的配置文件
+CentOS-Media.repo 是yum 本地源的配置文件
+如果本地使用的是其他配置文件，将对应的文件名进行更换。
+vi 命令修改CentOS-Media.repo：
+[centos74-media]
+name=CentOS-$releasever - Media
+baseurl=file:///local_yum
+gpgcheck=0
+enabled=1
+gpgkey=file:///local_yum/RPM-GPG-KEY-CentOS-7
+
+8，禁用默认的yum网络源（可选）
+vi CentOS-Base.repo
+enabled=0
+如果yum使用的是其他的配置文件，将CentOS-Base.repo修改为本机当前使用的配置文件。
+
+9，清空yum缓存目录
+yum clean all
+
+10，建立yum元数据缓存
+yum makecache
+
+11，查看本机的yum repo参考
+yum repolist
+
+12.1，增强配置，设置开机自动挂载
+将自动挂载命令写入到 /etc/rc.d/rc.local文件中
+
+12.2，给rc.local文件加执行权限
+chmod +x  /etc/rc.d/rc.local
+
+13.设置仓库在不可用时跳过
+yum-config-manager --save --setopt=<repoid>.skip_if_unavailable=true
