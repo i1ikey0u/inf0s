@@ -11,8 +11,8 @@ https://mirrors.aliyun.com/centos/7.9.2009/isos/x86_64/CentOS-7-x86_64-Everythin
 记住该目录，注意确保挂载点或本地目录的权限允许所有系统用户读取。
 mkidr -p /local_yum
 
-4，挂载镜像文件，将其挂载到/local_yum目录
-mount -t iso9660 -o loop /root/CentOS-7-x86_64-Everything-2207-02.iso  /mnt
+4，挂载镜像文件，将其挂载到/local_yum目录(注意替换ISO镜像名称)
+mount -t iso9660 -o loop /root/CentOS-7-x86_64-Everything-2207-02.iso  /local_yum
 
 5，使用df -Th，确认挂载情况
 
